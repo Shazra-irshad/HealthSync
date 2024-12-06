@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Radiologist Imaging Search</title>
+    <style>
+        /* General Body Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            flex-direction: column;
+            color: #333;
+        }
+
+        /* Title Styles */
+        h1 {
+            text-align: center;
+            color: #4CAF50;
+            font-size: 2rem;
+            margin-top: 20px;
+        }
+
+        /* Form Container */
+        .form-container {
+            background-color: #ffffff;
+            padding: 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            width: 100%;
+            max-width: 600px;
+            margin-top: 30px;
+        }
+
+        /* Input Field and Button Styles */
+        label {
+            font-size: 1rem;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0 20px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            .form-container {
+                width: 90%;
+                margin-top: 20px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <h1>Search Imaging Data by Patient</h1>
+
+    <div class="form-container">
+        <form method="get" action="/radiologist-imaging/">
+            <!-- Patient ID Field -->
+            <label for="patient_id">Patient ID:</label>
+            <input type="text" id="patient_id" name="patient_id" placeholder="Enter Patient ID">
+
+            <!-- Full Name Field -->
+            <label for="full_name">Full Name:</label>
+            <input type="text" id="full_name" name="full_name" placeholder="Enter Full Name">
+
+            <!-- Imaging Type Field -->
+            <label for="imaging_type">Imaging Type:</label>
+            <input type="text" id="imaging_type" name="imaging_type" placeholder="Enter Imaging Type (e.g., MRI, X-Ray)">
+
+            <!-- Search Button -->
+            <button type="submit">Search</button>
+        </form>
+    </div>
+
+</body>
+</html>

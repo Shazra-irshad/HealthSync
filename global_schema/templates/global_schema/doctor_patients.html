@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patients Under Doctor</title>
+    <style>
+        /* General Body Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f6f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            flex-direction: column;
+            color: #333;
+        }
+
+        /* Title Styles */
+        h1 {
+            text-align: center;
+            color: #4CAF50;
+            font-size: 2rem;
+            margin-top: 20px;
+        }
+
+        /* Table Styles */
+        table {
+            width: 90%;
+            margin: 20px;
+            border-collapse: collapse;
+            background-color: #ffffff;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+            font-size: 1rem;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            color: #333;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        /* Button Styles */
+        .button {
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: #45a049;
+        }
+
+        .button:disabled {
+            background-color: #d3d3d3;
+            cursor: not-allowed;
+        }
+
+        /* Popup Styles */
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            z-index: 1000;
+            display: none;
+        }
+
+        .popup h2 {
+            color: #4CAF50;
+            margin-bottom: 10px;
+        }
+
+        .popup button {
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .popup button:hover {
+            background-color: #45a049;
+        }
+
+        /* Overlay Styles */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            display: none;
+        }
+    </style>
+    <script>
+        function downloadImage(patientId, imagingType, imagingUrl) {
+            const fileId = imagingUrl.split("id=")[1];
+            const downloadUrl = `https://drive.google.com/uc?export=download&id=${fileId}`;
+            const fileName = `${patientId}_${imagingType}.jpg`; // Customize the file extension if needed
+
+            // Create a hidden <a> element to trigger the download
+            const a = document.createElement('a');
+            a.href = downloadUrl;
+            a.download = fileName; // Set the filename dynamically
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+
+            // Show the popup after the download starts
+            showPopup(fileName);
+        }
+
+        function logLabTestResults(patientId, labTestResults) {
+            console.log(`Patient ID: ${patientId}, Lab Test Results:`, labTestResults);
+        }
+
+        function showPopup(fileName) {
+            const overlay = document.getElementById('overlay');
+            const popup = document.getElementById('popup');
+            const popupMessage = document.getElementById('popup-message');
+
+            popupMessage.innerText = `File "${fileName}" downloaded successfully!`;
+            overlay.style.display = 'block';
+            popup.style.display = 'block';
+        }
+
+        function closePopup() {
+            const overlay = document.getElementById('overlay');
+            const popup = document.getElementById('popup');
+            overlay.style.display = 'none';
+            popup.style.display = 'none';
+        }
+    </script>
+</head>
+<body>
+
+    <h1>Patients Under {{ doctor_name|default:"All Doctors" }}{% if severity %} - Severity: {{ severity|title }}{% endif %}</h1>
+
+    {% if patients %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Patient ID</th>
+                    <th>Full Name</th>
+                    <th>Date of Birth</th>
+                    <th>Gender</th>
+                
+                    <th>Lab Test Name</th>
+                    <th>Lab Test Results</th>
+                    <th>Imaging Type</th>
+                    <th>Download</th>
+                    <th>Description</th>
+                    <th>Action</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                {% for patient in patients %}
+                <tr>
+                    <td>{{ patient.patient_id }}</td>
+                    <td>{{ patient.full_name }}</td>
+                    <td>{{ patient.dob }}</td>
+                    <td>{{ patient.gender }}</td>
+                    <td>{{ patient.lab_test_name }}</td>
+                    <!-- <td>{{ patient.lab_test_results. }}</td> -->
+                    <td>
+                        {% if patient.lab_test_results %}
+                            <div style="padding: 8px; background-color: #f9f9f9; border-radius: 5px;">
+                                {% for key, value in patient.lab_test_results.items %}
+                                    <p style="margin: 5px 0; font-size: 1rem;">
+                                        <strong>{{ key|title }}:</strong> {{ value }}
+                                    </p>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            <span>No lab test results available.</span>
+                        {% endif %}
+                    </td>
+                    
+                         
+                    
+                    <td>{{ patient.imaging_type }}</td>
+                    <td>
+                        <button class="button" onclick="downloadImage('{{ patient.patient_id }}', '{{ patient.imaging_type }}', '{{ patient.imaging_url }}')">Download</button>
+                    </td>
+                    <td>{{ patient.description }}</td>
+                    <td>
+                        <button class="button" onclick="alert('This button can trigger suggestions logic!')">Get Suggestion</button>
+                    </td>
+                   
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No patients found matching the criteria.</p>
+    {% endif %}
+
+    <!-- Popup for Successful Download -->
+     <div class="overlay" id="overlay"></div>
+    <div class="popup" id="popup">
+        <h2>Download Successful!</h2>
+        <p id="popup-message"></p>
+        <button onclick="closePopup()">Close</button>
+    </div>
+
+</body>
+</html> 
+
+

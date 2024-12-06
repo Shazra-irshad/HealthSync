@@ -1,0 +1,391 @@
+<!-- 
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Details</title>
+    <style>
+        /* General Body Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f6f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* Title Styles */
+        h1 {
+            text-align: center;
+            color: #4CAF50;
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        /* Table Styles */
+        table {
+            width: 80%;
+            margin: 20px 0;
+            border-collapse: collapse;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        th, td {
+            padding: 12px 20px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+            font-size: 1.1rem;
+        }
+
+        td {
+            background-color: #fafafa;
+        }
+
+        tr:nth-child(even) td {
+            background-color: #f1f1f1;
+        }
+
+        tr:hover td {
+            background-color: #e8f5e9;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            table {
+                width: 95%;
+            }
+
+            th, td {
+                font-size: 0.9rem;
+                padding: 8px;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* Button Style */
+        .back-button {
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            text-align: center;
+            cursor: pointer;
+            margin-top: 20px;
+            text-decoration: none;
+        }
+
+        .back-button:hover {
+            background-color: #45a049;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="content">
+        <h1>Patient Details</h1>
+
+        <table>
+            <tr>
+                <th>Field</th>
+                <th>Value</th>
+            </tr>
+            <tr>
+                <td>Patient ID</td>
+                <td>{{ patient.patient_id }}</td>
+            </tr>
+            <tr>
+                <td>Full Name</td>
+                <td>{{ patient.full_name }}</td>
+            </tr>
+            <tr>
+                <td>Date of Birth</td>
+                <td>{{ patient.dob }}</td>
+            </tr>
+            <tr>
+                <td>Gender</td>
+                <td>{{ patient.gender }}</td>
+            </tr>
+            <tr>
+                <td>Contact Number</td>
+                <td>{{ patient.contact_number }}</td>
+            </tr>
+            <tr>
+                <td>Lab Test Name</td>
+                <td>{{ patient.lab_test_name }}</td>
+            </tr>
+            <tr>
+                <td>Lab Test Results</td>
+                <td>{{ patient.lab_test_results }}</td>
+            </tr>
+            <tr>
+                <td>Imaging Type</td>
+                <td>{{ patient.imaging_type }}</td>
+            </tr>
+
+        </table>
+
+        <a href="/home" class="back-button">Back</a> <!-- You can replace the href with the actual URL -->
+    <!-- </div>
+
+</body>
+</html> --> -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Details</title>
+    <style>
+        /* General Body Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f6f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* Title Styles */
+        h1 {
+            text-align: center;
+            color: #4CAF50;
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        /* Table Styles */
+        table {
+            width: 80%;
+            margin: 20px 0;
+            border-collapse: collapse;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        th, td {
+            padding: 12px 20px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+            font-size: 1.1rem;
+        }
+
+        td {
+            background-color: #fafafa;
+        }
+
+        tr:nth-child(even) td {
+            background-color: #f1f1f1;
+        }
+
+        tr:hover td {
+            background-color: #e8f5e9;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            table {
+                width: 95%;
+            }
+
+            th, td {
+                font-size: 0.9rem;
+                padding: 8px;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* Button Style */
+        .back-button {
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            text-align: center;
+            cursor: pointer;
+            margin-top: 20px;
+            text-decoration: none;
+        }
+
+        .back-button:hover {
+            background-color: #45a049;
+        }
+
+        /* Popup Styles */
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            z-index: 1000;
+            display: none;
+        }
+
+        .popup h2 {
+            color: #4CAF50;
+            margin-bottom: 10px;
+        }
+
+        .popup button {
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .popup button:hover {
+            background-color: #45a049;
+        }
+
+        /* Overlay Styles */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="content">
+        <h1>Patient Details</h1>
+
+        <table>
+            <tr>
+                <th>Field</th>
+                <th>Value</th>
+            </tr>
+            <tr>
+                <td>Patient ID</td>
+                <td>{{ patient.patient_id }}</td>
+            </tr>
+            <tr>
+                <td>Full Name</td>
+                <td>{{ patient.full_name }}</td>
+            </tr>
+            <tr>
+                <td>Date of Birth</td>
+                <td>{{ patient.dob }}</td>
+            </tr>
+            <tr>
+                <td>Gender</td>
+                <td>{{ patient.gender }}</td>
+            </tr>
+            <tr>
+                <td>Contact Number</td>
+                <td>{{ patient.contact_number }}</td>
+            </tr>
+            <tr>
+                <td>Lab Test Name</td>
+                <td>{{ patient.lab_test_name }}</td>
+            </tr>
+            <tr>
+                <td>Lab Test Results</td>
+                <td>{{ patient.lab_test_results }}</td>
+            </tr>
+            <tr>
+                <td>Imaging Type</td>
+                <td>{{ patient.imaging_type }}</td>
+            </tr>
+            <tr>
+                <td>Download Imaging</td>
+                <td>
+                    <a href="#" id="download-link" onclick="downloadImage('{{ patient.imaging_url }}')">
+                        Click to download
+                    </a>
+                </td>
+            </tr>
+        </table>
+
+        <a href="/home" class="back-button">Back</a>
+    </div>
+
+    <!-- Popup for Successful Download -->
+    <div class="overlay" id="overlay"></div>
+    <div class="popup" id="popup">
+        <h2>Download Successful!</h2>
+        <p>Your imaging file has been downloaded successfully.</p>
+        <button onclick="closePopup()">Close</button>
+    </div>
+
+    <script>
+        function downloadImage(url) {
+            const fileId = url.split("id=")[1];
+            const downloadUrl = `https://drive.google.com/uc?export=download&id=${fileId}`;
+
+            // Create a hidden <a> element to trigger the download
+            const a = document.createElement('a');
+            a.href = downloadUrl;
+            a.download = 'imaging_file'; // Specify a default filename
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+
+            // Show the popup
+            showPopup();
+        }
+
+        function showPopup() {
+            const overlay = document.getElementById('overlay');
+            const popup = document.getElementById('popup');
+            overlay.style.display = 'block';
+            popup.style.display = 'block';
+        }
+
+        function closePopup() {
+            const overlay = document.getElementById('overlay');
+            const popup = document.getElementById('popup');
+            overlay.style.display = 'none';
+            popup.style.display = 'none';
+        }
+    </script>
+</body>
+</html>
+
+
